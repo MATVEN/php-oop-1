@@ -7,13 +7,19 @@ class Configuration{
   public $description;
 }
 
-function __constuct($id, $title, $description){
+function __construct($id, $title, $description){
 
   $this -> id = $id;
   $this -> title = $title;
   $this -> description = $description;
 }
 
+public function __toString(){
+
+  return '[' . $this -> id . ']'
+    . $this -> title . ' - '
+    . $this -> description;
+}
 
   header('Content-Type: application/json');
 
@@ -31,7 +37,8 @@ function __constuct($id, $title, $description){
 
   $sql = "
 
-  SELECT * FROM configurazioni
+  SELECT *
+  FROM configurazioni
 
   ";
 
@@ -45,7 +52,16 @@ function __constuct($id, $title, $description){
   $confs = [];
   while($conf = $res -> fetch_assoc()) {
 
+    $myConf = new Configuration(
+
+      $conf['id'],
+      $conf['title'],
+      $conf['description']
+    );
+
     $confs[] = $conf;
   }
 
-  echo json_encode($confs);
+  foreach ($confs as $key => $value) {
+    echo $value . "\n";
+  }
