@@ -62,6 +62,7 @@ public function __toString(){
     $confs[] = $conf;
   }
 
-  foreach ($confs as $key => $value) {
-    echo $value . "\n";
+  foreach ($confs as $conf) {
+    
+    echo $conf . "\n";
   }
